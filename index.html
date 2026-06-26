@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>ChatApp</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">💬</div>
+    <h1>ChatApp</h1>
+    <p class="auth-sub">تواصل مع الجميع</p>
+    <div class="auth-tabs">
+      <button class="atab active" id="tab-login" onclick="switchTab('login')">تسجيل الدخول</button>
+      <button class="atab" id="tab-register" onclick="switchTab('register')">حساب جديد</button>
+    </div>
+    <div id="auth-form">
+      <input type="text" id="a-username" placeholder="اسم المستخدم" autocomplete="off">
+      <input type="password" id="a-password" placeholder="كلمة المرور">
+      <div id="auth-err"></div>
+      <button id="auth-btn" onclick="doAuth()">دخول</button>
+    </div>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <div id="my-avatar" class="avatar sm"></div>
+      <div id="my-username"></div>
+      <button id="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+    <div id="user-menu" class="hidden">
+      <button onclick="logout()">🚪 تسجيل الخروج</button>
+    </div>
+    <div id="search-box">
+      <input type="text" id="search-inp" placeholder="🔍 بحث..." oninput="filterChats()">
+    </div>
+    <div id="chat-list"></div>
+  </div>
+
+  <div id="main-area">
+    <div id="empty-state">
+      <div class="empty-icon">💬</div>
+      <h2>مرحباً بك في ChatApp</h2>
+      <p>اختر غرفة أو مستخدماً للبدء</p>
+    </div>
+
+    <div id="chat-view" class="hidden">
+      <div id="chat-top">
+        <button id="back-btn" onclick="goBack()">‹</button>
+        <div id="chat-avatar" class="avatar sm"></div>
+        <div id="chat-info">
+          <div id="chat-name"></div>
+          <div id="chat-status"></div>
+        </div>
+      </div>
+      <div id="messages-area"></div>
+      <div id="typing-indicator" class="hidden"></div>
+      <div id="input-bar">
+        <input type="text" id="msg-inp" placeholder="اكتب رسالة..." autocomplete="off"
+          oninput="onTyping()" onkeydown="if(event.key==='Enter')sendMsg()">
+        <button id="send-btn" onclick="sendMsg()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
